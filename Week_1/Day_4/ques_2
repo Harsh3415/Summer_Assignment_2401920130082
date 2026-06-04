@@ -1,0 +1,33 @@
+class Solution {
+    public int[][] matrixReshape(int[][] mat, int r, int c) {
+
+        int rows = mat.length;
+        int columns = mat[0].length;
+
+        if (rows*columns!=r*c) {
+            return mat;
+        }
+
+        int[][] newmatrix = new int[r][c];
+
+        int newrow = 0;
+        int newcolumn = 0;
+
+        for (int row = 0; row < rows; row++) {
+            for (int column = 0; column < columns; column++) {
+
+                newmatrix[newrow][newcolumn] =
+                        mat[row][column];
+
+                newcolumn++;
+
+                if (newcolumn == c) {
+                    newcolumn = 0;
+                    newrow++;
+                }
+            }
+        }
+
+        return newmatrix;
+    }
+}
