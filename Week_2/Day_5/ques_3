@@ -1,0 +1,36 @@
+class Solution {
+    public String longestPalindrome(String s) {
+
+        String longestPalindrome="";
+
+        for(int center=0;center<s.length();center++) {
+
+            String oddPalindrome=expandFromCenter(s,center,center);
+
+            if(oddPalindrome.length()>longestPalindrome.length()) {
+                longestPalindrome=oddPalindrome;
+            }
+
+            String evenPalindrome=expandFromCenter(s,center,center+1);
+
+            if(evenPalindrome.length()>longestPalindrome.length()) {
+                longestPalindrome=evenPalindrome;
+            }
+        }
+
+        return longestPalindrome;
+    }
+
+    public String expandFromCenter(String s,int left,int right) {
+
+        while(left>=0 &&
+              right<s.length() &&
+              s.charAt(left)==s.charAt(right)) {
+
+            left--;
+            right++;
+        }
+
+        return s.substring(left+1,right);
+    }
+}
