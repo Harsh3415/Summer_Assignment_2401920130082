@@ -1,0 +1,47 @@
+class Solution {
+    public String decodeString(String s) {
+
+        Stack<Integer> numberStack=new Stack<>();
+        Stack<String> stringStack=new Stack<>();
+
+        String currentString="";
+        int currentNumber=0;
+
+        for(int i=0;i<s.length();i++) {
+
+            char currentCharacter=s.charAt(i);
+
+            if(Character.isDigit(currentCharacter)) {
+
+                currentNumber=currentNumber*10+(currentCharacter-'0');
+
+            } else if(currentCharacter=='[') {
+
+                numberStack.push(currentNumber);
+                stringStack.push(currentString);
+
+                currentNumber=0;
+                currentString="";
+
+            } else if(currentCharacter==']') {
+
+                int repeatCount=numberStack.pop();
+                String previousString=stringStack.pop();
+
+                String repeatedPart="";
+
+                for(int j=0;j<repeatCount;j++) {
+                    repeatedPart=repeatedPart+currentString;
+                }
+
+                currentString=previousString+repeatedPart;
+
+            } else {
+
+                currentString=currentString+currentCharacter;
+            }
+        }
+
+        return currentString;
+    }
+}
